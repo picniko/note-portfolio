@@ -1,7 +1,14 @@
 <template>
   <transition name="fade" mode="out-in">
-    <NotesList v-if="!noteFormPage" />
-    <NoteForm v-else />
+    <!-- notes list page -->
+    <div v-if="!noteFormPage">
+      <NotesList />
+    </div>
+
+    <!-- note form page -->
+    <div v-else>
+      <NoteForm />
+    </div>
   </transition>
 
   <transition name="modal">

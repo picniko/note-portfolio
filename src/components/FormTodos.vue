@@ -1,85 +1,138 @@
 <template>
-  <div>
-    <h3>Задачи:</h3>
-
-    <div class="todo-input">
+  <h3>Задачи:</h3>
+  <div class="todo-input">
+    <!-- input for create todo -->
+    <div style="display: flex; justify-content: center; color: #3cef3994">
       <input
         type="text"
         v-model="createdTodo"
         placeholder="Новая задача"
-        @keydown.enter.prevent="saveTodo"
+        @keydown.enter.prevent="saveTodoAction"
       />
-    </div>
-
-    <div class="overflow-content">
-      <div
-        class="todo-card body"
-        v-for="todo in form.todos"
-        :key="todo.id"
-        @click="todo.complited = !todo.complited"
-        style="max-height: 400px"
-      >
-        <div style="display: flex; width: 100%">
-          <div style="align-self: center">
-            <input type="checkbox" v-model="todo.complited" />
-          </div>
-          <div @change="compliteTodo(todo)">
-            <!-- eslint-disable-next-line prettier/prettier -->
-            <span class="todo-title" :class="todo.complited ? 'todo-complited' : ''">
-              {{ todo.title }}
-            </span>
-          </div>
-        </div>
-        <div class="info-button pointer">
-          <span class="mdi mdi-pencil"></span>
-        </div>
-        <!-- eslint-disable-next-line prettier/prettier -->
-        <div class="delete-button pointer" @click="deleteNoteTodo(todo)">
-          <span class="mdi mdi-delete"></span>
-        </div>
+      <!-- eslint-disable-next-line prettier/prettier -->
+      <div style="margin-bottom: 7px; width 50px">
+        <mdicon name="receipt-text-plus" size="36" @click="saveTodoAction" />
       </div>
     </div>
+  </div>
 
-    <!-- information about the number of completed todos and all todos  -->
-    <div style="color: gray">
-      Выполнено:
-      {{ form.todos?.filter((todo) => todo.complited).length ?? 0 }} /
-      {{ form.todos?.length ?? 0 }}
+  <div class="overflow-content">
+    <!-- todos card -->
+    <div class="todo-card body" v-for="todo in form.todos" :key="todo.id">
+      <div style="display: flex; width: 100%">
+        <!-- todo checkbox -->
+        <div style="align-self: center">
+          <input type="checkbox" v-model="todo.complited" />
+        </div>
+
+        <!-- title todo -->
+        <div
+          style="width: 100%"
+          v-if="editedTodo.id !== todo.id"
+          @click="todo.complited = !todo.complited"
+        >
+          <!-- eslint-disable-next-line prettier/prettier -->
+          <span class="todo-title" :class="todo.complited ? 'todo-complited' : ''">
+            {{ todo.title }}
+          </span>
+        </div>
+
+        <!-- input for edit todo -->
+        <div v-else style="width: 100%">
+          <input
+            type="text"
+            class="note-input"
+            style="width: 95%"
+            v-model="todo.title"
+            placeholder="Изменение задачи"
+            @keydown.enter.prevent="saveEditTodoAction(todo)"
+          />
+        </div>
+      </div>
+
+      <!-- buttons edit and if edit todo - save -->
+      <div class="info-button pointer">
+        <mdicon
+          name="pencil"
+          size="20"
+          v-if="editedTodo.id !== todo.id"
+          @click="editTodo(todo)"
+        />
+        <mdicon
+          name="content-save-check-outline"
+          size="20"
+          v-else
+          @click="saveEditTodoAction(todo)"
+        />
+      </div>
+
+      <!-- buttons delete and if edit todo - cancel -->
+      <div class="delete-button pointer">
+        <mdicon
+          name="cancel"
+          size="20"
+          class="mdi mdi-cancel"
+          v-if="editedTodo.id === todo.id"
+          @click="cancelEditTodo(todo.id)"
+        />
+        <mdicon
+          v-else
+          name="delete-sweep-outline"
+          size="20"
+          @click="deleteNoteTodo(todo.id)"
+        />
+      </div>
     </div>
   </div>
+
+  <!-- information about the number of completed todos and all todos  -->
+  <div style="color: gray">
+    Выполнено:
+    {{ form.todos?.filter((todo) => todo.complited).length ?? 0 }} /
+    {{ form.todos?.length ?? 0 }}
+  </div>
 </template>
+
 <script setup>
-import { computed, ref, defineProps, defineEmits } from "vue";
-const props = defineProps({
-  form: {
-    type: Object,
-    required: true,
-  },
-  notes: {
-    type: Array,
-    required: true,
-  },
-});
-const emit = defineEmits(["addTodo", "deleteTodo"]);
+import { form } from "../composables/useNote";
+import modalActionComposition from "../composables/useModalAction";
 
-const createdTodo = ref("");
+// vars and methods from composable for work with todo
+import {
+  saveEditTodo,
+  saveTodo,
+  idForCreatedTodo,
+  createdTodo,
+  editedTodo,
+  defaultEditedTodo,
+} from "../composables/TodoComposable";
+import { onUnmounted } from "vue";
 
-// Individual id for todo
-const idForCreatedTodo = computed(() => {
-  return props.form.todos?.length // check note on exist todos
-    ? Math.max(...props.form.todos.map((todo) => todo.id)) + 1 // if
-    : props.notes.length
-    ? 1 +
-      Math.max(
-        ...props.notes
-          // eslint-disable-next-line prettier/prettier
-          .map((note) => (note?.todos.length ? note.todos.map((todo) => todo.id) : 0))
-          .flat(1)
-      )
-    : 1;
-});
+const editTodo = (todo) => {
+  if (todo)
+    defaultEditedTodo.value = editedTodo.value = Object.assign(
+      {},
+      JSON.parse(JSON.stringify(todo))
+    );
+};
 
-const saveTodo = () => {
+// reset edit todo
+const cancelEditTodo = (todoId) => {
+  form.value.todos = form.value.todos.map(
+    (todo) => (todo = todo.id === todoId ? defaultEditedTodo.value : todo)
+  );
+  defaultEditedTodo.value = editedTodo.value = {};
+};
+
+// confirm edit todo
+const saveEditTodoAction = (todo) => {
+  if (todo.title.length) {
+    saveEditTodo(todo);
+    defaultEditedTodo.value = editedTodo.value = {};
+  }
+};
+
+const saveTodoAction = () => {
   //check input todo title
   if (createdTodo.value.length) {
     let date = new Date(); // for created todo date
@@ -92,19 +145,20 @@ const saveTodo = () => {
       complited: false,
       created: date.toLocaleDateString(),
     };
-    emit("addTodo", todo);
+    saveTodo(todo);
     createdTodo.value = ""; // reset todo input
   }
 };
 
-const compliteTodo = (todo) => {
-  console.log(todo);
+// call confirm delete todo modal
+const deleteNoteTodo = (todo) => {
+  modalActionComposition("deleteTodo", todo, true);
 };
 
-const deleteNoteTodo = (todo) => {
-  console.log(todo);
-  emit("deleteTodo", todo);
-};
+onUnmounted(() => {
+  createdTodo.value = "";
+  editedTodo.value = {};
+});
 </script>
 
 <style scoped>

@@ -1,4 +1,5 @@
 import { computed, ref } from "vue";
+import { deleteTodo } from "../composables/TodoComposable";
 import { deleteNote, cancelEditNote } from "../composables/useNote";
 export const showModal = ref(false);
 export let text = "";
@@ -10,7 +11,7 @@ export const acceptAction = () => {
     ? deleteNote(entityId)
     : entityAction === "cancelEditNote"
     ? cancelEditNote()
-    : "";
+    : deleteTodo(entityId);
   showModal.value = false;
 };
 

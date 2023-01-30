@@ -1,5 +1,6 @@
 <template>
   <div class="card">
+    <!-- computed title(create or edit) for note -->
     <h2 class="title">
       {{ computedTitle }}
     </h2>
@@ -17,17 +18,13 @@
         />
       </div>
 
-      <!-- Note todos -->
-      <FormTodos
-        :form="form"
-        @addTodo="addTodo"
-        :notes="notes"
-        :deleteTodo="deleteTodo"
-      />
+      <!-- Note todos card info -->
+      <FormTodos />
 
+      <!-- canel and confirm note form -->
       <button
         class="button"
-        :class="form.title?.length ? 'half' : ''"
+        :class="form.title?.length && !editedTodo.id ? 'half' : ''"
         @click.prevent="cancelForm"
       >
         Отмена
@@ -36,7 +33,7 @@
         class="half success button"
         type="submit"
         @click.prevent="saveNote(form)"
-        v-if="form.title"
+        v-if="form.title && !editedTodo.id"
       >
         Сохранить
       </button>
@@ -45,35 +42,19 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { onMounted } from "vue";
 import FormTodos from "@/components/FormTodos.vue";
-// eslint-disable-next-line prettier/prettier
+import { editedTodo } from "@/composables/TodoComposable";
+import modalActionComposition from "../composables/useModalAction";
 import {
   action,
-  notes,
   form,
   noteFormPage,
   saveNote,
   defaultNote,
+  lastId,
+  computedTitle,
 } from "../composables/useNote";
-import modalActionComposition from "../composables/useModalAction";
-
-// prepare id for new note
-// eslint-disable-next-line prettier/prettier
-const lastId = notes?.value.length ? Math.max(...notes?.value.map((note) => note.id)) : 0;
-
-const computedTitle = computed(() => {
-  return action.value == "update" ? "Изменение заметки" : "Новая заметка";
-});
-const addTodo = (todo) => {
-  form.value.todos.push(todo);
-};
-const deleteTodo = (todo) => {
-  console.log(todo);
-  // eslint-disable-next-line prettier/prettier
-  form.value.todos = form.value.todos.filter((note_todo) => note_todo.id !== todo.id);
-};
-
 const cancelForm = () => {
   action.value === "update" &&
   JSON.stringify(defaultNote.value) !== JSON.stringify(form.value)
@@ -82,11 +63,13 @@ const cancelForm = () => {
 };
 
 onMounted(() => {
+  console.log(form.value);
+
   if (action.value === "create") {
     form.value = {
-      todos: [],
       title: "",
-      id: lastId + 1 ?? 1,
+      todos: [],
+      id: lastId.value + 1 ?? 1,
       created: new Date().toLocaleDateString(),
     };
   } else {
