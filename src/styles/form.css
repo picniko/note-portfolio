@@ -1,0 +1,25 @@
+/* html elements */
+form {
+    margin: auto;
+    padding: 10px;
+}
+
+input:focus {
+    border-color: blue;
+}
+
+/* class styles */
+.pointer {
+    cursor: pointer;
+}
+
+.content {
+    padding: 10px;
+}
+
+.note-input {
+    outline: 0;
+    font-size: 18px;
+    border-color: gray;
+    border-width: 0 0 2px;
+}
