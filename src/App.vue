@@ -1,4 +1,7 @@
 <template>
+  <a target="_blank" href="https://github.com">
+    <mdicon name="github" size="31" class="github" />
+  </a>
   <transition name="fade" mode="out-in">
     <!-- notes list page -->
     <div v-if="!noteFormPage">
@@ -39,4 +42,11 @@ onMounted(async () => {
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 @import "./styles/global.css";
 @import "./styles/transitions.css";
+.github {
+  color: #fff;
+  position: fixed;
+  right: 0;
+  margin-right: 20px;
+  cursor: pointer;
+}
 </style>
