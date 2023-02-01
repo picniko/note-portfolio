@@ -1,18 +1,18 @@
 <template>
   <h3>Задачи:</h3>
-  <div class="todo-input">
+  <div class="">
     <!-- input for create todo -->
-    <div style="display: flex; justify-content: center; color: #3cef3994">
+    <div class="todo-form">
       <input
-        type="text"
-        v-model="createdTodo"
-        placeholder="Новая задача"
+        placeholder="Новая задача.."
+        v-model.trim="createdTodo"
         @keydown.enter.prevent="saveTodoAction"
+        type="text"
+        class="input-text"
       />
-      <!-- eslint-disable-next-line prettier/prettier -->
-      <div style="margin-bottom: 7px; width 50px">
-        <mdicon name="receipt-text-plus" size="36" @click="saveTodoAction" />
-      </div>
+      <button @click.prevent="saveTodoAction" class="btn btn-danger">
+        Добавить
+      </button>
     </div>
   </div>
 
@@ -31,8 +31,10 @@
           v-if="editedTodo.id !== todo.id"
           @click="todo.complited = !todo.complited"
         >
-          <!-- eslint-disable-next-line prettier/prettier -->
-          <span class="todo-title" :class="todo.complited ? 'todo-complited' : ''">
+          <span
+            class="todo-title"
+            :class="todo.complited ? 'todo-complited' : ''"
+          >
             {{ todo.title }}
           </span>
         </div>
@@ -109,6 +111,7 @@ import {
 import { onUnmounted } from "vue";
 
 const editTodo = (todo) => {
+  // before edit save original state changeble todo
   if (todo)
     defaultEditedTodo.value = editedTodo.value = Object.assign(
       {},
@@ -162,23 +165,45 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.todo-input {
-  margin-bottom: 15px;
-}
-.todo-input input {
-  height: 70%;
-  padding: 6px 10px 6px 10px;
-  position: relative;
+.todo-form {
   margin-bottom: 10px;
-  outline: none;
-  font-size: 18px;
-  border-radius: 5px;
-  border: 1px solid #999;
+  display: flex;
+  justify-content: center;
 }
-.todo-input input::placeholder {
-  color: #bfbfbf;
+.input-text {
+  height: 40px;
+  font-size: 15px;
+  border: 1px solid #dce4ec;
+  width: 100%;
+  margin-right: 15px;
+  border-radius: 2em;
+  padding: 2px 5px;
+  transition: border 250ms ease-out;
 }
 
+.input-text:focus {
+  border: 1px solid;
+  outline: none;
+}
+.btn {
+  cursor: pointer;
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 2em;
+  background: none;
+  border: 1px solid;
+  transition: 250ms ease-out;
+}
+
+.btn:hover {
+  color: #fff;
+  background: #3ccbe7;
+}
+
+.btn:focus {
+  color: #fff;
+  outline: none;
+}
 .todo-card {
   text-align: center;
   display: flex;

@@ -5,17 +5,23 @@ import mdiVue from "mdi-vue/v3";
 import {
   mdiReceiptTextPlus,
   mdiPencil,
+  mdiDotsGrid,
   mdiCancel,
+  mdiNotePlusOutline,
   mdiDeleteSweepOutline,
+  mdiFormatListBulleted,
   mdiContentSaveCheckOutline,
 } from "@mdi/js";
 
 createApp(App)
   .use(mdiVue, {
     icons: {
+      mdiNotePlusOutline,
       mdiReceiptTextPlus,
       mdiPencil,
       mdiCancel,
+      mdiDotsGrid,
+      mdiFormatListBulleted,
       mdiDeleteSweepOutline,
       mdiContentSaveCheckOutline,
     },

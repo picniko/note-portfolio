@@ -19,6 +19,7 @@ input:focus {
 
 .note-input {
     outline: 0;
+    width: 80%;
     font-size: 18px;
     border-color: gray;
     border-width: 0 0 2px;

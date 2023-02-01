@@ -2,7 +2,7 @@
   <transition name="fade" mode="out-in">
     <!-- notes list page -->
     <div v-if="!noteFormPage">
-      <NotesList />
+      <NotesPage />
     </div>
 
     <!-- note form page -->
@@ -11,6 +11,7 @@
     </div>
   </transition>
 
+  <!-- confirm modal dialog -->
   <transition name="modal">
     <ModalAction v-if="showModal" />
   </transition>
@@ -18,8 +19,8 @@
 
 <script setup>
 import { onMounted } from "vue";
+import NotesPage from "./pages/NotesPage.vue";
 import NoteForm from "./pages/NoteForm.vue";
-import NotesList from "./pages/NotesList.vue";
 import ModalAction from "./components/ModalAction.vue";
 import { noteFormPage, notes } from "./composables/useNote";
 import { showModal } from "./composables/useModalAction";
@@ -35,6 +36,7 @@ onMounted(async () => {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 @import "./styles/global.css";
-@import "./styles/transitions,css";
+@import "./styles/transitions.css";
 </style>

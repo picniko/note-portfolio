@@ -12,7 +12,7 @@
           type="text"
           autofocus
           class="note-input"
-          v-model="form.title"
+          v-model.trim="form.title"
           placeholder="Введите название заметки"
           @keydown.enter.prevent="saveNote(form)"
         />
@@ -63,8 +63,7 @@ const cancelForm = () => {
 };
 
 onMounted(() => {
-  console.log(form.value);
-
+  // prepare form for note
   if (action.value === "create") {
     form.value = {
       title: "",
@@ -73,8 +72,10 @@ onMounted(() => {
       created: new Date().toLocaleDateString(),
     };
   } else {
-    // eslint-disable-next-line prettier/prettier
-    defaultNote.value = Object.assign({}, JSON.parse(JSON.stringify(form.value)));
+    defaultNote.value = Object.assign(
+      {},
+      JSON.parse(JSON.stringify(form.value))
+    );
   }
 });
 </script>

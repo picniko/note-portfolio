@@ -48,7 +48,7 @@ export const idForCreatedTodo = computed(() => {
     ? 1 +
       Math.max(
         ...notes.value
-          // eslint-disable-next-line prettier/prettier
+
           .map((note) =>
             note?.todos.length ? note.todos.map((todo) => todo.id) : 0
           )

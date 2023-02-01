@@ -1,4 +1,9 @@
 /* html elements */
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
 li {
     justify-content: space-between;
     padding: 1px 5px 1px 5px;
@@ -50,5 +55,5 @@ li:hover {
 }
 
 .button:hover {
-    background-color: #2f7197;
+    background-color: #6793fa;
 }

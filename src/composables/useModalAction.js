@@ -6,6 +6,7 @@ export let text = "";
 export let title = "";
 let entityAction = "";
 let entityId = 0;
+// methods for confirm acion
 export const acceptAction = () => {
   entityAction === "deleteNote"
     ? deleteNote(entityId)
@@ -15,6 +16,7 @@ export const acceptAction = () => {
   showModal.value = false;
 };
 
+// close modal dialog
 export const cancelAction = () => {
   showModal.value = false;
 };

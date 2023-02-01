@@ -1,15 +1,22 @@
 <template>
   <transition name="modal">
-    <div class="modal-mask" v-if="showModal">
+    <div class="modal-dialog" v-if="showModal">
       <div class="modal-wrapper">
         <div class="modal-container">
+          <!-- modal title -->
           <h2>{{ title }}</h2>
+          <!-- modal text -->
           <p>{{ text }}</p>
+
+          <!-- modal buttons -->
           <div style="display: flex">
-            <!-- eslint-disable-next-line prettier/prettier -->
-            <button class="half warning button" @click="cancelAction">Отмена</button>
-            <!-- eslint-disable-next-line prettier/prettier -->
-            <button class="half success button" @click="acceptAction">Да</button>
+            <button class="half warning button" @click="cancelAction">
+              Отмена
+            </button>
+
+            <button class="half success button" @click="acceptAction">
+              Да
+            </button>
           </div>
         </div>
       </div>
@@ -18,7 +25,6 @@
 </template>
 
 <script setup>
-// eslint-disable-next-line prettier/prettier
 import {
   title,
   text,
@@ -29,7 +35,7 @@ import {
 </script>
 
 <style>
-.modal-mask {
+.modal-dialog {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -47,7 +53,8 @@ import {
 }
 
 .modal-container {
-  width: 500px;
+  width: 400px;
+  line-height: 1.8;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
