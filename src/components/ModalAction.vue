@@ -8,15 +8,13 @@
           <!-- modal text -->
           <p>{{ text }}</p>
 
-          <!-- modal buttons -->
-          <div style="display: flex">
-            <button class="half warning button" @click="cancelAction">
-              Отмена
-            </button>
+          <!-- modal buttons  -->
+          <div class="footer">
+            <!-- cancel  -->
+            <button class="warning-button" @click="cancelAction">Отмена</button>
 
-            <button class="half success button" @click="acceptAction">
-              Да
-            </button>
+            <!-- confirm -->
+            <button class="success-button" @click="acceptAction">Да</button>
           </div>
         </div>
       </div>
@@ -31,48 +29,9 @@ import {
   showModal,
   acceptAction,
   cancelAction,
-} from "../composables/useModalAction";
+} from "../composables/ModalActionComposable";
 </script>
 
 <style>
-.modal-dialog {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.modal-container {
-  width: 400px;
-  line-height: 1.8;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
-.modal-container button {
-  width: 45%;
-  cursor: pointer;
-  padding: 10px 0;
-  margin: 0px 5px 0px 5px;
-  background: #6fd649;
-  color: #fff;
-  border: 0;
-  outline: 0;
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+@import "../styles/modal.css";
 </style>

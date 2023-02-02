@@ -16,6 +16,7 @@
             style="font-size: 14px"
             >{{ todo.title }}</span
           >
+          <!-- first 2 todos title -->
           <span
             v-if="note.todos.length > 2"
             style="font-size: 14px; color: gray"
@@ -24,6 +25,7 @@
         </div>
         <div class="bottom-content">
           <span>{{ note.created }}</span>
+          <!-- delete note button icon -->
           <div
             class="settings"
             @click="modalActionComposition('deleteNote', note.id, true)"
@@ -56,8 +58,8 @@
 </template>
 
 <script setup>
-import { notes, showForm } from "../composables/useNote";
-import modalActionComposition from "../composables/useModalAction";
+import { notes, showForm } from "../composables/NoteComposable";
+import modalActionComposition from "../composables/ModalActionComposable";
 </script>
 
 <style scoped>

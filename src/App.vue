@@ -1,7 +1,4 @@
 <template>
-  <a target="_blank" href="https://github.com">
-    <mdicon name="github" size="31" class="github" />
-  </a>
   <transition name="fade" mode="out-in">
     <!-- notes list page -->
     <div v-if="!noteFormPage">
@@ -25,8 +22,8 @@ import { onMounted } from "vue";
 import NotesPage from "./pages/NotesPage.vue";
 import NoteForm from "./pages/NoteForm.vue";
 import ModalAction from "./components/ModalAction.vue";
-import { noteFormPage, notes } from "./composables/useNote";
-import { showModal } from "./composables/useModalAction";
+import { noteFormPage, notes } from "./composables/NoteComposable";
+import { showModal } from "./composables/ModalActionComposable";
 import { firstNote } from "./components/firstNote";
 
 onMounted(async () => {
@@ -42,11 +39,4 @@ onMounted(async () => {
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 @import "./styles/global.css";
 @import "./styles/transitions.css";
-.github {
-  color: #fff;
-  position: fixed;
-  right: 0;
-  margin-right: 20px;
-  cursor: pointer;
-}
 </style>

@@ -38,6 +38,19 @@ li:hover {
     color: grey;
 }
 
+.page-title {
+    display: flex;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+}
+
+.page-icon {
+    color: white;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
 .note-title {
     width: 100%;
     text-align: left;

@@ -9,48 +9,8 @@ export const form = ref({}); // create/edit note form
 export const action = ref(""); // action create/update
 export const defaultNote = ref({}); // save initial data for rollback note
 export const noteFormPage = ref(false); // show form note page
-// get last id from notes array for created note
-export const lastId = computed(() =>
-  notes?.value.length ? Math.max(...notes?.value.map((note) => note.id)) : 0
-);
 
-// title for form page
-export const computedTitle = computed(() => {
-  return action.value == "update" ? "Изменение заметки" : "Новая заметка";
-});
-
-export const computedNotes = computed(() => {
-  // checking if an array is empty
-  if (notes.value.length) {
-    // convert note data to user readable format "veritatis (dolorem,voluptatem,+2)"
-    return notes.value
-      .map((note) => {
-        return {
-          id: note.id,
-          //noteTitle(task1,task2,+{tasks.length number})
-          title: `${note.title}
-                ${
-                  note.todos.length
-                    ? // select first 2 notes
-                      ` (${note.todos?.slice(0, 2).map((i) => i["title"])}${
-                        note.todos?.length > 2
-                          ? // show number of undisplayed todos length if more than 2 todos
-                            `,+${note.todos?.length - 2})`
-                          : ")"
-                      }`
-                    : " (задач нет)" // if note not have todos
-                }`,
-          // info if all todos complited
-          complited:
-            !!note.todos.length &&
-            note.todos.filter((todo) => !todo.complited).length == 0,
-        };
-      })
-      .sort((a, b) => Number(b.id) - Number(a.id));
-  } else {
-    return []; // return if notes empty
-  }
-});
+//methods
 
 // show form page
 export const showForm = (noteId = null, actionForm = "") => {
@@ -104,3 +64,48 @@ export const deleteNote = (noteId) => {
     (notes.value = notes.value.filter((note) => note.id !== noteId))
   );
 };
+
+//computed vars
+
+export const lastId = computed(() =>
+  // get last id from notes array for new note
+  notes?.value.length ? Math.max(...notes?.value.map((note) => note.id)) : 0
+);
+
+// title for form page
+export const computedTitle = computed(() => {
+  return action.value == "update" ? "Редактор заметки" : "Новая заметка";
+});
+
+export const computedNotes = computed(() => {
+  // checking if an array is empty
+  if (notes.value.length) {
+    // convert note data to user readable format "veritatis (dolorem,voluptatem,+2)"
+    return notes.value
+      .map((note) => {
+        return {
+          id: note.id,
+          //noteTitle(task1,task2,+{tasks.length number})
+          title: `${note.title}
+                ${
+                  note.todos.length
+                    ? // select first 2 notes
+                      ` (${note.todos?.slice(0, 2).map((i) => i["title"])}${
+                        note.todos?.length > 2
+                          ? // show number of undisplayed todos length if more than 2 todos
+                            `,+${note.todos?.length - 2})`
+                          : ")"
+                      }`
+                    : " (задач нет)" // if note not have todos
+                }`,
+          // info if all todos complited
+          complited:
+            !!note.todos.length &&
+            note.todos.filter((todo) => !todo.complited).length == 0,
+        };
+      })
+      .sort((a, b) => Number(b.id) - Number(a.id));
+  } else {
+    return []; // return if notes empty
+  }
+});

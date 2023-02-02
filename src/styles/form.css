@@ -24,4 +24,5 @@ input:focus {
     border-color: gray;
     border-width: 0 0 2px;
     background: transparent;
+    margin: 20px 0px 20px 0px;
 }

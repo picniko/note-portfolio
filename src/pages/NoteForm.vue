@@ -23,14 +23,14 @@
 
       <!-- canel and confirm note form -->
       <button
-        class="button"
+        class="cancel-button"
         :class="form.title?.length && !editedTodo.id ? 'half' : ''"
         @click.prevent="cancelForm"
       >
         Отмена
       </button>
       <button
-        class="half success button"
+        class="half success-button"
         type="submit"
         @click.prevent="saveNote(form)"
         v-if="form.title && !editedTodo.id"
@@ -45,7 +45,7 @@
 import { onMounted } from "vue";
 import FormTodos from "@/components/FormTodos.vue";
 import { editedTodo } from "@/composables/TodoComposable";
-import modalActionComposition from "../composables/useModalAction";
+import modalActionComposition from "../composables/ModalActionComposable";
 import {
   action,
   form,
@@ -54,7 +54,7 @@ import {
   defaultNote,
   lastId,
   computedTitle,
-} from "../composables/useNote";
+} from "../composables/NoteComposable";
 const cancelForm = () => {
   action.value === "update" &&
   JSON.stringify(defaultNote.value) !== JSON.stringify(form.value)
@@ -72,6 +72,7 @@ onMounted(() => {
       created: new Date().toLocaleDateString(),
     };
   } else {
+    //save initial note for cancel
     defaultNote.value = Object.assign(
       {},
       JSON.parse(JSON.stringify(form.value))

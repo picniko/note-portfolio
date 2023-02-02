@@ -24,17 +24,16 @@
       </ul>
     </div>
 
-    <div>
-      <button class="button" @click="showForm(null, 'create')">
-        Новая заметка
-      </button>
-    </div>
+    <!-- add new note button -->
+    <button class="cancel-button" @click="showForm(null, 'create')">
+      Новая заметка
+    </button>
   </div>
 </template>
 
 <script setup>
-import { computedNotes, showForm } from "../composables/useNote";
-import modalActionComposition from "../composables/useModalAction";
+import { computedNotes, showForm } from "../composables/NoteComposable";
+import modalActionComposition from "../composables/ModalActionComposable";
 </script>
 
 <style scoped>

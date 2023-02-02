@@ -1,30 +1,23 @@
 import { computed, ref } from "vue";
-import { notes, form as noteForm, action } from "./useNote";
+import { notes, form as noteForm } from "./NoteComposable";
 
 export const createdTodo = ref("");
 export const editedTodo = ref({});
 export const defaultEditedTodo = ref({});
 
+// save todo in noteForm
 export const saveTodo = (todo) => {
-  console.log(action.value);
   noteForm.value.todos.push(todo);
 };
 
+// save editedTodo in noteForm
 export const saveEditTodo = (editTodo) => {
-  // save note in notes and localstorage
-  localStorage.notes = JSON.stringify(
-    (notes.value = notes.value.filter(
-      (note) =>
-        (note.todos = note.todos.map(
-          (todo) => (todo = todo.id === editTodo.id ? editTodo : todo)
-        ))
-    ))
-  );
   noteForm.value.todos = noteForm.value.todos.filter(
     (todo) => (todo = todo.id === editTodo.id ? editTodo : todo)
   );
 };
 
+// rollback todo
 export const cancelEditTodo = (todoId) => {
   noteForm.value.todos = noteForm.value.todos.map(
     (todo) => (todo = todo.id === todoId ? defaultEditedTodo.value : todo)
@@ -32,6 +25,7 @@ export const cancelEditTodo = (todoId) => {
   defaultEditedTodo.value = editedTodo.value = {};
 };
 
+// delete todo from noteForm
 export const deleteTodo = (todoId) => {
   noteForm.value.todos = noteForm.value.todos.filter(
     (todo) => todo.id !== todoId
@@ -43,8 +37,8 @@ export const deleteTodo = (todoId) => {
 // Individual id for todo
 export const idForCreatedTodo = computed(() => {
   return noteForm.value.todos?.length // check note on exist todos
-    ? Math.max(...noteForm.value.todos.map((todo) => todo.id)) + 1 // if
-    : notes.value.length
+    ? Math.max(...noteForm.value.todos.map((todo) => todo.id)) + 1 // find max id in note todos and ++
+    : notes.value.length //check existing notes
     ? 1 +
       Math.max(
         ...notes.value
@@ -53,6 +47,6 @@ export const idForCreatedTodo = computed(() => {
             note?.todos.length ? note.todos.map((todo) => todo.id) : 0
           )
           .flat(1)
-      )
-    : 1;
+      ) //if notes exists get max id from all note
+    : 1; //else first id
 });

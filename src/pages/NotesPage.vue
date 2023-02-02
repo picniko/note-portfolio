@@ -1,25 +1,22 @@
 <template>
+  <!-- link on github project -->
+  <a target="_blank" href="https://github.com/picniko/note-portfolio">
+    <mdicon name="github" size="31" class="github" />
+  </a>
   <!-- Page title with button icons -->
-  <h1 class="page-title">
+  <div>
     <transition name="no-mode-fade" mode="out-in">
-      <mdicon
-        name="format-list-bulleted"
-        v-if="showCards"
-        class="page-icon"
-        size="31"
-        @click="changeView"
-      />
-
-      <mdicon
-        name="dots-grid"
-        v-else
-        class="page-icon"
-        size="31"
-        @click="changeView"
-      />
+      <!-- cards grid view -->
+      <div v-if="showCards" class="page-icon">
+        <mdicon name="format-list-bulleted" size="31" @click="changeView" />
+      </div>
+      <!-- list view -->
+      <div v-else class="page-icon">
+        <mdicon name="dots-grid" size="31" @click="changeView" />
+      </div>
     </transition>
-    Мои заметки
-  </h1>
+  </div>
+  <h1 class="page-title">Мои заметки</h1>
 
   <!-- View page cards or list -->
   <transition name="fade" mode="out-in">
@@ -39,7 +36,11 @@ import { ref } from "vue";
 import NotesList from "@/components/NotesList.vue";
 import NotesCards from "@/components/NotesCards.vue";
 
-const showCards = ref(localStorage.showCards === "true" ?? true);
+//cards grid view
+const showCards = ref(
+  (localStorage.showCards && localStorage.showCards === "true") ?? true
+);
+// change view on cards or list and save in localstorage
 const changeView = () => {
   showCards.value = !showCards.value;
   localStorage.showCards = showCards.value;
@@ -48,13 +49,4 @@ const changeView = () => {
 
 <style scoped>
 @import "../styles/notePage.css";
-.page-title {
-  color: white;
-  cursor: pointer;
-  margin-top: 15px;
-}
-.page-icon {
-  color: white;
-  cursor: pointer;
-}
 </style>

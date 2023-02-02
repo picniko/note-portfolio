@@ -4,21 +4,19 @@
     box-sizing: border-box;
 }
 
-.wrapper {
-    margin: 0px 50px 50px 50px;
-    display: grid;
-    gap: 25px;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fill, 265px);
-}
 
 .wrapper li {
     height: 250px;
     list-style: none;
     border-radius: 5px;
     padding: 15px 20px 20px;
+    transition: all .2s ease-in-out;
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.wrapper li:hover {
+    transform: scale(1.1);
 }
 
 .add-box,
@@ -97,12 +95,4 @@ header,
     color: #8b8989;
     cursor: pointer;
     font-size: 23px;
-}
-
-@media (max-width: 660px) {
-    .wrapper {
-        margin: 15px;
-        gap: 15px;
-        grid-template-columns: repeat(auto-fill, 100%);
-    }
 }

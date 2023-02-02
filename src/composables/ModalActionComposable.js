@@ -1,6 +1,6 @@
 import { computed, ref } from "vue";
-import { deleteTodo } from "../composables/TodoComposable";
-import { deleteNote, cancelEditNote } from "../composables/useNote";
+import { deleteTodo } from "./TodoComposable";
+import { deleteNote, cancelEditNote } from "./NoteComposable";
 export const showModal = ref(false);
 export let text = "";
 export let title = "";
@@ -9,10 +9,10 @@ let entityId = 0;
 // methods for confirm acion
 export const acceptAction = () => {
   entityAction === "deleteNote"
-    ? deleteNote(entityId)
+    ? deleteNote(entityId) //delete note
     : entityAction === "cancelEditNote"
-    ? cancelEditNote()
-    : deleteTodo(entityId);
+    ? cancelEditNote() //cancel edit note
+    : deleteTodo(entityId); //delete todo
   showModal.value = false;
 };
 
@@ -28,6 +28,14 @@ const modalActionComposition = (
 ) => {
   entityAction = modalAction;
   entityId = payloadEntityId;
+  //computed title modal view
+  title = computed(() => {
+    return (
+      modalActionText.find((modalText) => modalText[modalAction])[modalAction]
+        .title ?? "Error 500"
+    );
+  });
+  //computed text modal view
   text = computed(() => {
     return (
       "Вы уверены, что хотите " +
@@ -35,13 +43,8 @@ const modalActionComposition = (
           .text ?? "Error 500"
     );
   });
-  title = computed(() => {
-    return (
-      modalActionText.find((modalText) => modalText[modalAction])[modalAction]
-        .title ?? "Error 500"
-    );
-  });
 
+  // make modal title and text from payload data
   let modalActionText = [
     {
       deleteNote: {
@@ -53,8 +56,8 @@ const modalActionComposition = (
         text: "удалить задачу?",
       },
       cancelEditNote: {
-        title: "Отмена изменения заметки!",
-        text: "отменить редактирование заметки?",
+        title: "Отмена редактирования заметки!",
+        text: "отменить последние изменение?",
       },
     },
   ];

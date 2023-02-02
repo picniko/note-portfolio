@@ -27,17 +27,27 @@ input[type="checkbox"] {
     width: 50% !important;
 }
 
+.wrapper {
+    margin: 0px 50px 50px 50px;
+    display: grid;
+    gap: 25px;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, 265px);
+}
+
+
+
 .title {
     padding-top: 20px;
     color: grey;
 }
 
-.success {
-    background-color: #6fd649 !important;
-}
-
-.warning {
-    background-color: #d6b749 !important;
+.github {
+    color: #fff;
+    position: fixed;
+    right: 0;
+    margin-right: 20px;
+    cursor: pointer;
 }
 
 .body {
@@ -86,15 +96,60 @@ input[type="checkbox"] {
     padding: 10px;
     color: white;
     cursor: pointer;
-    margin-top: 15px;
     font-size: 18px;
     background-color: #88abff;
+}
+
+.success-button {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    background-color: #0bba74;
+}
+
+.success-button:hover {
+    background-color: #039e60;
+}
+
+.warning-button {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    background-color: #d6b749;
+}
+
+.warning-button:hover {
+    background-color: #c69e0c;
+}
+
+.cancel-button {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    background-color: #6591f8;
+}
+
+.cancel-button:hover {
+    background-color: #457bfb;
 }
 
 /* custom scrollbar */
 .overflow-content {
     max-height: 400px;
     overflow: auto;
+    box-shadow: 0px 2prgb(85, 133, 247)gb(154 154 154 / 31%);
 }
 
 ::-webkit-scrollbar {
@@ -114,4 +169,12 @@ input[type="checkbox"] {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf;
+}
+
+@media (max-width: 660px) {
+    .wrapper {
+        margin: 15px;
+        gap: 15px;
+        grid-template-columns: repeat(auto-fill, 100%);
+    }
 }
