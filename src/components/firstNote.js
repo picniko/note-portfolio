@@ -69,7 +69,7 @@ export const firstNote = ref({
     {
       id: 31,
       title: "Отменить редактирование (необходимо подтверждение)",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
@@ -81,13 +81,13 @@ export const firstNote = ref({
     {
       id: 33,
       title: "Отменить внесенное изменение",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 34,
       title: "Повторить отмененное изменение Действия с пунктами Todo:",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
@@ -105,7 +105,7 @@ export const firstNote = ref({
     {
       id: 37,
       title: "Отредактировать текст todo",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
@@ -125,27 +125,27 @@ export const firstNote = ref({
       id: 40,
       title:
         "Подтверждение действий (удалить заметку) выполняется с помощью диалогового окна.",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 41,
       title: "Интерфейс должен отвечать требованиям usability.",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 42,
       title:
         "После перезагрузки страницы состояние списка заметок должно сохраняться.",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 43,
       title:
         "Можно пренебречь несоответствием редактирования текста с помощью кнопок отменить/повторить и аналогичным действиям с помощью комбинацияй клавиш (Ctrl+Z, Command+Z, etc.).",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
@@ -185,41 +185,41 @@ export const firstNote = ref({
       id: 49,
       title:
         "Логика приложения должна быть разбита на разумное количество самодостаточных Vue-компонентов.",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 50,
       title:
         "Код должен быть написан понятно и аккуратно, с соблюдением табуляции и прочих элементов написания, без лишних элементов и функций, не имеющих отношения к функционалу тестового задания, снабжен понятными комментариями.",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 51,
       title: "Читабельность и наличие элементарной архитектуры.",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 52,
       title:
         "Чистота и оформление кода — не менее важный фактор. Код должен быть написан в едином стиле (желательно в рекомендуемом для конкретного языка). Также к чистоте относятся отсутствие копипаста и дублирования логики.",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 53,
       title:
         "Ссылка на публичный репозиторий (GitHub, BitBucket, GitLab) с исходным кодом.",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
     {
       id: 54,
       title:
         "Ссылка на сайт для тестирования функционала. Или Dockerfile и docker-compose.yaml, позволяющие развернуть локально командой docker-compose up работоспособную копию сайта.ехническое заданиеехническое заданиеехническое задание",
-      complited: false,
+      complited: true,
       created: "26.01.2023",
     },
   ],
